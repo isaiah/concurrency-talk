@@ -17,21 +17,23 @@ public class Downloader {
 
   public static void main(String[] args) {
     Downloader downloader = new Downloader();
-    downloader.concurrent();
-    //downloader.serial();
+    final Counter c = new Counter();
+    downloader.concurrent(c);
+    //downloader.serial(c);
+    c.print();
     downloader.shutdown();
   }
 
-  public void serial() {
+  public void serial(Counter c) {
     for (String doi: DOIS) {
-      new Handler(doi).run();
+      new Handler(doi, c).run();
     }
   }
 
-  public void concurrent() { // run the service
+  public void concurrent(Counter c) { // run the service
     List<Future<?>> results = new ArrayList<>();
     for (String doi: DOIS) {
-      results.add(pool.submit(new Handler(doi)));
+      results.add(pool.submit(new Handler(doi, c)));
     }
 
     results.stream().forEach(x -> {
@@ -47,13 +49,26 @@ public class Downloader {
     pool.shutdown();
   }
 
-  class Handler implements Runnable {
-    private String doi;
+  static class Counter {
+    private int i = 0;
 
-    Handler(String doi) {
-      this.doi = doi;
+    public void inc() {
+      i++;
     }
 
+    public void print() {
+      System.out.println(i);
+    }
+  }
+
+  class Handler implements Runnable {
+    private String doi;
+    private Counter c;
+
+    Handler(String doi, Counter c) {
+      this.doi = doi;
+      this.c = c;
+    }
 
     public void run() {
       try {
@@ -68,7 +83,9 @@ public class Downloader {
             HttpResponse.BodyHandler.asString()
             );
         int statusCode = response.statusCode();
-        System.out.println(statusCode);
+        if (statusCode == 200) {
+          c.inc();
+        }
       } catch (IOException | URISyntaxException | InterruptedException e) {
         System.out.println("err!");
       }
