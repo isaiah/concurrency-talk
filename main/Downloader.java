@@ -18,8 +18,8 @@ public class Downloader {
   public static void main(String[] args) {
     Downloader downloader = new Downloader();
     final Counter c = new Counter();
-    downloader.concurrent(c);
-    //downloader.serial(c);
+    //downloader.concurrent(c);
+    downloader.serial(c);
     c.print();
     downloader.shutdown();
   }

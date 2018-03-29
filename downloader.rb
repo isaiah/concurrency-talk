@@ -24,10 +24,11 @@ def concurrent
     end
   end
 
+  threads.each(&:join)
   puts count
 end
 
 if __FILE__ == $0
-  serial
-  #concurrent
+  #serial
+  concurrent
 end

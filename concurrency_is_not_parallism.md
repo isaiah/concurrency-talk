@@ -1,13 +1,12 @@
-# Concurrency is not parallism
+Concurrency is not parallism
+============================
 
 Not related to how they are executed, it's about planning
 
-Concurrency enables parallism, "but it's not the goal, the goal is to
-structure the program"
+Concurrency enables parallism, "but it's not the goal"[1]
 
-# Use case
-
-# why do we need them
+Why do we need them
+-------------------
 
 Modern computers have multiple cores, most applications are IO bounded
 (web application)
@@ -15,55 +14,59 @@ Modern computers have multiple cores, most applications are IO bounded
 What is IO, it stands for Input/Output, but I'll simplify it a bit:
 It's about when CPU is idle waiting for something to finish
 
-# Thread
+Thread
+------
 
-What's a thread, it's to split the work so that the CPU can execute the
-concurrently
+split the work into small tasks so that the CPU can execute them concurrently
 
-## Thread variance
+Variance:
 
-Green thread, Coroutines, Actor, reactor
+Green thread, Coroutines, Actor, callback
 
-## Nodejs, go, erlang
+Scheduling
+==========
 
-## Apache vs Nginx
+why: CPU number is limited
+-------------------
 
-# Scheduling
+The role of OS (or VM)
+----------------------
 
-## The role of OS (or VM)
+Preemptive vs Cooperative
+-------------------------
 
-## why: CPU is limited
+Synchronization
+=================
 
-# Synchronization
+why: race condition (demo)
+--------------------------
 
-## why: race condition (demo)
+how: mutex (lock)
+---------------------------------
 
-## how: locks, conditional variables
-
-# Implementations
+Abstractions
+============
 
 Stream, Executor, Thread Pool
 
 Promise, Future
 
-# Parallism (Process)
+Process
+=======
 
-* difference
-* How
+* Difference
 
-# When it doesn't work
+When it doesn't work
+====================
 
-# recap
+recap
+=====
 
 
-# QA
+Q & A
+=====
 
 # links
 
-Rob Pike's talk, Java concurrency in practice.
-
-
-# ideas
-
-compare different langauges
-
+[1] Rob Pike's talk
+[2] Java concurrency in practice.

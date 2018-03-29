@@ -1,0 +1,15 @@
+{
+  "name": "downloader",
+  "version": "1.0.0",
+  "description": "demo for concurrent programming",
+  "main": "downloader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node downloader.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0"
+  }
+}
